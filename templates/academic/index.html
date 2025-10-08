@@ -1,0 +1,16 @@
+{% extends "components/base.html" %}
+
+{% block body %}
+<h1>{{ section.title }}</h1>
+
+{# <!--suppress GrazieInspection --> #}
+<ul>
+    {% for page in section.pages %}
+    <li>
+        {# <!--suppress HtmlUnknownTarget --> #}
+        <a href="{{ page.permalink }}">{{ page.title }}</a>
+        {# <small>{{ page.date | date(format="%Y-%m-%d") }}</small> #}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock body %}

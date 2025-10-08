@@ -1,0 +1,4 @@
+{# <!--suppress HtmlUnknownAttribute --> #}
+<div {% if properties %} {{properties}} {% endif %}>
+    {{body | markdown | safe}}
+</div>

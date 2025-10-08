@@ -1,0 +1,32 @@
+# The URL the site will be built for
+base_url = "https://crazy_lighthouse.onrender.com"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = false
+
+[extra]
+# Put all your custom variables here
+
+default_language = "en"
+
+[languages.en]
+[languages.en.translations]
+title = "The Lighthouse"
+description = "Personal and academic projects"
+personal_projects = "Personal Projects"
+academic_projects = "Academic Projects"
+
+[languages.ru]
+[languages.ru.translations]
+title = "Луч"
+description = "Персональные и учебные проекты"
+personal_projects = "Персональные Проекты"
+academic_projects = "Учебные Проекты"
