@@ -48,7 +48,7 @@ template = "academic/generic_presentation.html"
 ## Заключение
 
 Таким образом, Дмитрий Иванович Менделеев — это не просто учёный, открывший закон, которым пользуются во всём мире. Это великий российский деятель, внёсший огромный вклад в развитие науки, образования, промышленности и государственной системы России. Его жизнь — это яркий пример того, как один человек может повлиять на судьбу целой страны.
-{{image(class="img" src="academic_projects/mendeleev/meme.png" source="https://avatars.dzeninfra.ru/get-zen_doc/3362051/pub_6162bf5ff6ca423b25e57e04_618bbb0d47124f612a9eb1c9/scale_1200")}}
+{{image(src="academic_projects/mendeleev/meme.png" source="https://avatars.dzeninfra.ru/get-zen_doc/3362051/pub_6162bf5ff6ca423b25e57e04_618bbb0d47124f612a9eb1c9/scale_1200")}}
 
 {% div(properties='class=footer') %}
 Список источников:
