@@ -41,6 +41,12 @@ template = "academic/generic_presentation.html"
 
 {{image(src="academic_projects/mendeleev/statue.png" source="https://avatars.mds.yandex.net/i?id=be2ab9b1a0bb34c30f419139115234a63ea6b0d7-5348469-images-thumbs&n=13")}}
 
+## Полёт на воздушном шаре
+
+В 1887 году Дмитрий Иванович Менделеев совершил знаменитый полёт на воздушном шаре, чтобы лично наблюдать солнечное затмение и провести научные измерения в атмосфере. Несмотря на сильный ветер и опасные условия, он поднялся на высоту около 3,5 километров в одиночку, не имея большого опыта воздухоплавания. Этот поступок продемонстрировал не только его научное любопытство, но и исключительное мужество — Менделеев стремился к знаниям, даже когда ради этого нужно было рискнуть жизнью.
+
+{{image(src="academic_projects/mendeleev/aerostat.jpg" source="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Ilya_Repin%2C_The_Solar_Eclipse_of_1887_%28Dmitri_Ivanovich_Mendeleev_on_the_aerostat%29.jpg/1200px-Ilya_Repin%2C_The_Solar_Eclipse_of_1887_%28Dmitri_Ivanovich_Mendeleev_on_the_aerostat%29.jpg")}}
+
 ## Личность
 
 Менделеев — пример учёного-гуманиста. Его отличали трудолюбие, независимость мышления, преданность науке и стране. Он оставил после себя не только научное наследие, но и пример настоящего служения Родине.

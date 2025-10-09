@@ -3,5 +3,5 @@
     <img src="{{ get_url(path=src) }}"
          alt="{{ alt | default(value='') }}"
          class="{{ class | default(value='img') }}"/>
-    <p style="opacity: 0.3; font-size: 14px; position: absolute; top: 100%; left: 0; overflow-wrap: anywhere">Источник: {% if source %} {{ source }} {% else %} {{get_url(path=src)}} {% endif %}</p>
+    <p style="opacity: 0.3; font-size: 14px; position: absolute; top: 100%; left: 0; overflow-wrap: anywhere; line-height: 0.9">Источник: {% if source %} {{ source }} {% else %} {{get_url(path=src)}} {% endif %}</p>
 </div>
