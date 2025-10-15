@@ -101,7 +101,8 @@ template = "academic/generic_presentation.html"
 Его идеи по сей день находят применение в **культурологии**, **геополитике** и **философии истории**.
 
 {% div(properties='class=footer') %}
-Выполнили: 
+Выполнили: Каменская Ангелина, Хорошков Дмитрий, Искандаров Тимур
+
 Список источников:
 - https://www.nur.kz/family/school/1880240-mendeleev-biografia-licnaa-zizn-otkrytia-ucenogo/https/discovery.nur.kz/v1/
 - https://smotrim.ru/article/3227801
