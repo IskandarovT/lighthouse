@@ -7,7 +7,8 @@
   --h1-size: 64px
   --h2-size: 40px
   --font-size: 24px
-  @media (max-width: 600px)
+  --img-border-radius: 10px
+  @media (max-width: 900px)
     --h1-size: 32px
     --h2-size: 20px
     --font-size: 14px
@@ -22,10 +23,16 @@ body
   margin: 0
 
 .hero
+  min-height: 400px
   background: var(--accent)
   display: flex
   align-items: center
   text-align: center
+  padding-top: 50px
+  padding-bottom: 50px
+.hero img
+  max-width: min(40vw, 600px)
+  max-height: min(25vw, 400px)
 
 h1
   font-size: var(--h1-size)
@@ -44,15 +51,17 @@ h2, h3
 .flex-horizontal
   display: flex
   flex-direction: row
-  @media (max-width: 800px)
+  @media (max-width: 900px)
     flex-direction: column
     align-items: center
 
 .padding
-  max-width: 800px
+  max-width: 65vw
   margin: 0 auto
   padding: 0 2rem
   text-align: justify
+  @media (max-width: 900px)
+    max-width: 80vw
 
 .img
   max-width: min(800px, 100vw, 100%)
@@ -68,6 +77,9 @@ h2, h3
   overflow: hidden
   padding-left: 50px
   width: calc(100% - 50px)
+
+.rounded
+  border-radius: var(--img-border-radius)
 
 a
   color: var(--fg)

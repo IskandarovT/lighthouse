@@ -1,0 +1,27 @@
+﻿+++
+title = "Zola Editor"
+template = "personal/zola_editor/index.html"
+
+[extra.translations]
+new_file = "Новый файл"
+open_file = "Открыть файл..."
+save = "Сохранить"
+copy_all_to_clipboard = "Скопировать всё в буфер"
+paste_all_from_clipboard = "Вставить всё из буфера"
+shortcuts = "Сочетания клавиш"
+theme = "Тема"
+add_generic_front_matter = "Добавить стандартный front matter"
+add_shortcode = "Добавить шорткод"
+add_shortcode_with_body = "Добавить шорткод (с телом)"
+extend_template = "Расширить шаблон"
+add_parameter = "Добавить параметр"
+add_condition = "Добавить условие"
+add_iterator = "Добавить итератор"
+add_filter = "Добавить фильтр"
+set_variable = "Установить переменную"
+create_preset = "Создать пресет"
+create_filter_preset = "Создать фильтр-пресет"
+md_mode = "Редактировать Markdown"
+sk_mode = "Редактировать Shortcode"
+noscript_warning = "Внимание: JavaScript отключён в браузере или не может быть запущен по другой причине. Без JavaScript редактор работать не будет. Включите его и перезагрузите страницу."
++++

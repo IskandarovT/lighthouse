@@ -1,0 +1,5 @@
+<div class="hero-image">
+    {# <!--suppress HtmlUnknownTarget --> #}
+    <img src="{{src}}" alt='{{ alt | default(value="") }}'>
+    {{ body | markdown | safe }}
+</div>

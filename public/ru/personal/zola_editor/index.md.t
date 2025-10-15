@@ -1,0 +1,27 @@
+﻿+++
+title = "Zola Editor"
+template = "personal/zola_editor/index.html"
+
+[extra.translations]
+new_file = "New File"
+open_file = "Open File..."
+save = "Save"
+copy_all_to_clipboard = "Copy All to Clipboard"
+paste_all_from_clipboard = "Paste All from Clipboard"
+shortcuts = "Shortcuts"
+theme = "Theme"
+add_generic_front_matter = "Add Generic Front Matter"
+add_shortcode = "Add Shortcode"
+add_shortcode_with_body = "Add Shortcode (with body)"
+extend_template = "Extend Template"
+add_parameter = "Add Parameter"
+add_condition = "Add Condition"
+add_iterator = "Add Iterator"
+add_filter = "Add Filter"
+set_variable = "Set Variable"
+create_preset = "Create Preset"
+create_filter_preset = "Create Filter Preset"
+md_mode = "Edit Markdown"
+sk_mode = "Edit Shortcode"
+noscript_warning = "Warning: JavaScript is disabled in your browser or cannot be executed for another reason. The editor will not work without JavaScript. Please enable it and reload the page."
++++

@@ -1,0 +1,301 @@
+{% extends "components/base.html" %}
+
+{% set t = page.extra.translations %}
+
+{% block body %}
+
+<main class="editor">
+
+    <div class="top">
+        <div class="top">
+            <button id="btn-md-mode">{{ t.md_mode }}</button>
+            <button id="btn-sk-mode">{{ t.sk_mode }}</button>
+        </div>
+        <div>
+            <div class="right">
+                <button id="btn-shortcuts">{{ t.shortcuts }}</button>
+                <button id="btn-theme">{{ t.theme }}</button>
+            </div>
+            <div class="left">
+                <button id="btn-new-file">{{ t.new_file }}</button>
+                <button id="btn-open-file">{{ t.open_file }}</button>
+                <button id="btn-save">{{ t.save }}</button>
+                <button id="btn-copy-all">{{ t.copy_all_to_clipboard }}</button>
+                <button id="btn-paste-all">{{ t.paste_all_from_clipboard }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="left">
+        <section class="md">
+            <button id="btn-add-generic-front-matter">{{ t.add_generic_front_matter }}</button>
+            <button id="btn-add-shortcode">{{ t.add_shortcode }}</button>
+            <button id="btn-add-shortcode-with-body">{{ t.add_shortcode_with_body }}</button>
+        </section>
+        <section class="sk">
+            <button id="btn-extend-template">{{ t.extend_template }}</button>
+            <button id="btn-add-parameter">{{ t.add_parameter }}</button>
+            <button id="btn-add-condition">{{ t.add_condition }}</button>
+            <button id="btn-add-iterator">{{ t.add_iterator }}</button>
+            <button id="btn-add-filter">{{ t.add_filter }}</button>
+            <button id="btn-set-variable">{{ t.set_variable }}</button>
+        </section>
+    </div>
+
+    <div class="right">
+        <section class="sk">
+            <div class="presets">
+                <button id="btn-create-preset">{{ t.create_preset }}</button>
+                <div id="sk-presets-container" class="sk-presets"></div>
+            </div>
+            <div class="filter-presets">
+                <button id="btn-create-filter-preset">{{ t.create_filter_preset }}</button>
+                <div id="sk-filter-presets-container" class="sk-presets"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="text-container"></div>
+
+</main>
+
+<script>
+    const MODE = {
+        MD_MODE: ".md",
+        SK_MODE: ".sk",
+    }
+    const FILE_TYPE = {
+        [MODE.MD_MODE]: "md",
+        [MODE.SK_MODE]: "html",
+    }
+    const FILE_TYPE_MODE_MAP = {
+        [FILE_TYPE[MODE.MD_MODE]]: MODE.MD_MODE,
+        [FILE_TYPE[MODE.SK_MODE]]: MODE.SK_MODE,
+    }
+
+    let files = [];
+    let mode = MODE.MD_MODE
+
+    const filesManager = {
+        files: [],
+        new_file: () => {
+            filesManager.add_file({
+                name: "untitled" + "." + FILE_TYPE[mode],
+                type: FILE_TYPE[mode],
+                content: [""]
+            })
+        },
+        add_file: (file) => {
+            // TODO: Update Ui
+            files.push(file)
+        },
+        rename: (i, new_name) => {
+            // TODO: Update Ui
+            files[i].name = new_name
+        },
+        close: (i) => {
+            // TODO: Update Ui
+            files.splice(i, 1)
+        },
+        is_empty: (i) => {
+            return files[i].content.length === 1 && files[i].content[0] === ""
+        },
+        safe_close: (i) => {
+            if (!filesManager.is_empty(i)) {
+                // TODO: Ask for confirmation
+                if ("cancelled") {
+                    return false
+                }
+                if ("save_and_close") {
+                    filesManager.save_file(i);
+                }
+            }
+            filesManager.close()
+            return true
+        },
+        move: (i, new_position) => {
+            files.splice(new_position, 0, files.splice(i, 1)[0])
+        },
+        open_files: async () => {
+            const file_handles = await window["showOpenFilePicker"]({
+                multiple: true,
+                types: [
+                    {
+                        description: 'Markdown & HTML files',
+                        accept: {
+                            'text/markdown': ['.md'],
+                            'text/html': ['.html']
+                        }
+                    }
+                ]
+            });
+            for (const file_handle of file_handles) {
+                const system_file = await file_handle.getFile();
+                const extension = system_file.name.split('.').pop().toLowerCase();
+                if (!["md", "html"].includes(extension)) continue;
+
+                const file = {
+                    name: system_file.name,
+                    type: extension,
+                    content: parser.parse(await system_file.text()),
+                    file_handle: file_handle
+                };
+                files.push(file);
+            }
+        },
+        save_file: async (i) => {
+            let file_handle = files[i]["file_handle"];
+
+            if (!file_handle) {
+                file_handle = await window["showSaveFilePicker"]({
+                    suggestedName: files[i].name,
+                    types: [
+                        {
+                            description: 'Markdown & HTML files',
+                            accept: {
+                                'text/markdown': ['.md'],
+                                'text/html': ['.html']
+                            }
+                        }
+                    ]
+                });
+
+                files[i]["file_handle"] = file_handle;
+            }
+
+            let permission = await file_handle['queryPermission']({ mode: 'readwrite' });
+            if (permission === 'prompt') {
+                permission = await file_handle['requestPermission']({ mode: 'readwrite' });
+            }
+
+            if (permission === 'granted') {
+                const writable = await file_handle.createWritable();
+                await writable.write(files[i].content);
+                await writable.close();
+                console.log(`Saved file: ${files[i].name}`);
+            } else {
+                console.warn('Permission denied, could not save file.');
+            }
+        },
+    };
+    const parser = {
+        parse: (text) => {
+            
+        }
+    }
+
+    // Note: modifier keys must be defined in the following order: ctrl, alt, shift
+    bind_button_actions(
+        [
+            ["btn-md-mode", () => {
+                set_mode(MODE.MD_MODE)
+            }, "ctrl+alt+m"],
+            ["btn-sk-mode", () => {
+                set_mode(MODE.SK_MODE)
+            }, "ctrl+alt+s"],
+            ["btn-shortcuts", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+n"],
+            ["btn-theme", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-new-file", () => {
+                files.push([])
+            }, "ctrl+alt+t"],
+            ["btn-open-file", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-save", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-copy-all", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-paste-all", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-add-generic-front-matter", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-add-shortcode", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-shortcode-with-body", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-extend-template", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-add-parameter", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-add-condition", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-add-iterator", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-add-filter", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-set-variable", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-create-preset", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+            ["btn-create-filter-preset", () => {
+                console.log("Not implemented")
+            }, "ctrl+alt+t"],
+        ]
+    )
+
+    set_mode(MODE.MD_MODE)
+
+    function set_mode(_mode) {
+        mode = _mode
+        Object.values(MODE).forEach(m => document.querySelectorAll(m).forEach(e => e.classList.add("disabled")))
+        document.querySelectorAll(mode).forEach(e => e.classList.remove("disabled"))
+    }
+
+    function bind_button_actions(button_actions) {
+        for (const [id, action] of button_actions) {
+            add_click_listener(id, action)
+        }
+        document.addEventListener("keydown", (event) => {
+            const combo = [
+                event.ctrlKey ? "ctrl" : "",
+                event.altKey ? "alt" : "",
+                event.shiftKey ? "shift" : "",
+                event.key.toLowerCase(),
+            ].filter(Boolean).join("+");
+
+            for (const [id, action, shortcut] of button_actions) {
+                const disabled = document.getElementById(id).classList.contains("disabled")
+                if (!disabled && shortcut && combo.toLowerCase() === shortcut) {
+                    event.preventDefault()
+                    action()
+                }
+            }
+        });
+    }
+
+    /**
+     *
+     * @param {string} elementId
+     * @param {() => any} callback
+     */
+    function add_click_listener(elementId, callback) {
+        document.getElementById(elementId).addEventListener("click", callback)
+    }
+</script>
+
+<style>
+    .disabled {
+        display: none;
+    }
+</style>
+
+<noscript>{{ t.noscript_warning }}</noscript>
+
+{% endblock body %}
